@@ -7,6 +7,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Open+Sans:wght@400;500&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
     :root {
       --navy: #0b1f3a;
       --navy-mid: #0f2d52;
@@ -17,6 +18,7 @@
       --gold-dark: #d4891a;
       --white: #ffffff;
       --off-white: #f7f9fc;
+      --light-gray: #edf1f7;
       --border: #dde3ed;
       --text: #0b1f3a;
       --text-2: #3d5473;
@@ -25,6 +27,7 @@
       --bot-bg: #eef3fa;
       --user-bg: #0f2d52;
     }
+
     body {
       background: linear-gradient(135deg, #0b1f3a 0%, #1a4a7a 100%);
       min-height: 100vh;
@@ -34,6 +37,7 @@
       font-family: 'Open Sans', sans-serif;
       padding: 16px;
     }
+
     #chatbot {
       width: 100%;
       max-width: 460px;
@@ -45,6 +49,8 @@
       height: 720px;
       box-shadow: 0 20px 60px rgba(0,0,0,0.35);
     }
+
+    /* ── HEADER ── */
     #header {
       background: var(--navy);
       padding: 0;
@@ -52,17 +58,20 @@
       position: relative;
       overflow: hidden;
     }
+
     .header-stripe {
       position: absolute; top: 0; left: 0; right: 0;
       height: 3px;
       background: linear-gradient(90deg, var(--gold), var(--sky-light), var(--gold));
     }
+
     .header-inner {
       padding: 14px 16px 12px;
       display: flex;
       align-items: center;
       gap: 12px;
     }
+
     .logo-box {
       background: rgba(255,255,255,0.08);
       border: 1px solid rgba(255,255,255,0.15);
@@ -71,6 +80,7 @@
       display: flex; align-items: center; justify-content: center;
       flex-shrink: 0;
     }
+
     .header-text { flex: 1; }
     .header-text h1 {
       font-family: 'Montserrat', sans-serif;
@@ -83,7 +93,9 @@
       font-size: 10.5px;
       color: rgba(255,255,255,0.55);
       margin-top: 2px;
+      letter-spacing: 0.3px;
     }
+
     .status-pill {
       display: flex; align-items: center; gap: 5px;
       background: rgba(255,255,255,0.08);
@@ -95,12 +107,16 @@
       font-family: 'Montserrat', sans-serif;
       font-weight: 500;
     }
+
     .dot-green {
       width: 7px; height: 7px; border-radius: 50%;
       background: #4ade80;
       animation: pulse 2s infinite;
     }
+
     @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.35} }
+
+    /* ── QUICK TOPICS ── */
     #quick-bar {
       background: var(--off-white);
       border-bottom: 1px solid var(--border);
@@ -108,6 +124,7 @@
       display: flex; gap: 6px; flex-wrap: wrap;
       flex-shrink: 0;
     }
+
     .q-btn {
       background: var(--white);
       border: 1px solid var(--border);
@@ -120,7 +137,13 @@
       transition: all 0.15s;
       white-space: nowrap;
     }
-    .q-btn:hover { border-color: var(--sky); color: var(--sky); background: #eef5fc; }
+    .q-btn:hover {
+      border-color: var(--sky);
+      color: var(--sky);
+      background: #eef5fc;
+    }
+
+    /* ── MESSAGES ── */
     #messages {
       flex: 1;
       overflow-y: auto;
@@ -132,10 +155,13 @@
       scrollbar-color: var(--border) transparent;
       background: var(--white);
     }
+
     .msg { display: flex; gap: 8px; max-width: 88%; animation: fadeUp 0.2s ease; }
     .msg.bot { align-self: flex-start; }
     .msg.user { align-self: flex-end; flex-direction: row-reverse; }
+
     @keyframes fadeUp { from{opacity:0;transform:translateY(4px)} to{opacity:1;transform:translateY(0)} }
+
     .av {
       width: 30px; height: 30px; border-radius: 50%;
       display: flex; align-items: center; justify-content: center;
@@ -143,6 +169,7 @@
     }
     .msg.bot .av { background: var(--navy); }
     .msg.user .av { background: var(--sky); }
+
     .bubble {
       padding: 10px 14px;
       border-radius: 14px;
@@ -150,8 +177,18 @@
       line-height: 1.65;
       white-space: pre-wrap;
     }
-    .msg.bot .bubble { background: var(--bot-bg); color: var(--text); border-bottom-left-radius: 4px; }
-    .msg.user .bubble { background: var(--user-bg); color: var(--white); border-bottom-right-radius: 4px; }
+
+    .msg.bot .bubble {
+      background: var(--bot-bg);
+      color: var(--text);
+      border-bottom-left-radius: 4px;
+    }
+    .msg.user .bubble {
+      background: var(--user-bg);
+      color: var(--white);
+      border-bottom-right-radius: 4px;
+    }
+
     .typing span {
       display: inline-block;
       width: 6px; height: 6px; border-radius: 50%;
@@ -162,12 +199,15 @@
     .typing span:nth-child(2){animation-delay:.2s}
     .typing span:nth-child(3){animation-delay:.4s}
     @keyframes bounce{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-5px)}}
+
+    /* ── BOOKING BUTTONS ── */
     #book-section {
       background: var(--off-white);
       border-top: 1px solid var(--border);
       padding: 10px 12px;
       flex-shrink: 0;
     }
+
     .book-label {
       font-size: 10px; font-weight: 700;
       color: var(--text-3);
@@ -176,12 +216,14 @@
       margin-bottom: 8px;
       font-family: 'Montserrat', sans-serif;
     }
+
     .book-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 6px;
       margin-bottom: 8px;
     }
+
     .book-btn {
       background: var(--navy);
       border: none;
@@ -198,7 +240,24 @@
       line-height: 1.3;
     }
     .book-btn:hover { background: var(--navy-light); }
-    .contact-row { display: flex; gap: 6px; }
+    .book-btn.gold {
+      background: var(--gold);
+      color: var(--navy);
+    }
+    .book-btn.gold:hover { background: var(--gold-dark); }
+    .book-btn.full {
+      grid-column: 1 / -1;
+      background: var(--gold);
+      color: var(--navy);
+      font-size: 12px;
+      padding: 9px;
+    }
+    .book-btn.full:hover { background: var(--gold-dark); }
+
+    .contact-row {
+      display: flex; gap: 6px;
+    }
+
     .contact-btn {
       flex: 1;
       border-radius: 8px;
@@ -218,6 +277,8 @@
     .contact-btn.wa:hover { background: #edfaf2; border-color: var(--green); }
     .contact-btn.agent { background: var(--sky); color: white; border-color: var(--sky); }
     .contact-btn.agent:hover { background: var(--sky-light); border-color: var(--sky-light); }
+
+    /* ── INPUT ── */
     #input-bar {
       padding: 10px 12px;
       display: flex; gap: 8px; align-items: center;
@@ -225,6 +286,7 @@
       border-top: 1px solid var(--border);
       flex-shrink: 0;
     }
+
     #user-input {
       flex: 1;
       background: var(--off-white);
@@ -239,6 +301,7 @@
     }
     #user-input::placeholder { color: var(--text-3); }
     #user-input:focus { border-color: var(--sky); }
+
     #send-btn {
       background: var(--navy);
       border: none; border-radius: 50%;
@@ -251,17 +314,93 @@
     }
     #send-btn:hover { background: var(--sky); }
     #send-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+    /* ── ACTION BAR ── */
+    #action-bar {
+      background: var(--off-white);
+      border-top: 1px solid var(--border);
+      padding: 10px 12px;
+      flex-shrink: 0;
+    }
+
+    .main-btns {
+      display: flex;
+      gap: 6px;
+    }
+
+    .main-btn {
+      flex: 1;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text-2);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px; font-weight: 600;
+      padding: 8px 6px;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center; gap: 4px;
+      transition: all 0.15s;
+      white-space: nowrap;
+    }
+
+    .main-btn:hover { border-color: var(--sky); color: var(--sky); background: #eef5fc; }
+    .main-btn.gold { background: var(--gold); border-color: var(--gold); color: var(--navy); }
+    .main-btn.gold:hover { background: var(--gold-dark); border-color: var(--gold-dark); }
+    .main-btn.active { border-color: var(--sky); color: var(--sky); background: #eef5fc; }
+    .main-btn.gold.active { background: var(--gold-dark); border-color: var(--gold-dark); }
+
+    .chevron { transition: transform 0.2s; }
+    .main-btn.active .chevron { transform: rotate(180deg); }
+
+    .sub-panel {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      margin-top: 8px;
+      animation: fadeUp 0.15s ease;
+    }
+
+    .sub-panel.open { display: flex; }
+
+    .sub-btn {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text-2);
+      font-family: 'Open Sans', sans-serif;
+      font-size: 12.5px; font-weight: 500;
+      padding: 8px 12px;
+      cursor: pointer;
+      text-decoration: none;
+      display: flex; align-items: center; gap: 8px;
+      transition: all 0.15s;
+    }
+
+    .sub-btn:hover { border-color: var(--sky); color: var(--sky); background: #eef5fc; }
+    .sub-btn.wa { color: #25D366; border-color: #c3ead0; }
+    .sub-btn.wa:hover { background: #edfaf2; }
+    .sub-btn.agent { color: var(--sky); border-color: #c5d9fb; }
+    .sub-btn.agent:hover { background: #eef3fe; }
+    .sub-btn.ig { color: #e1306c; }
+    .sub-btn.tiktok { color: #000; }
+    .sub-btn.fb { color: #1877f2; }
+    .sub-btn.rednote { color: #ff2442; }
+
     .powered {
       text-align: center;
       font-size: 10px;
       color: var(--text-3);
       padding: 5px;
       background: var(--white);
+      letter-spacing: 0.3px;
     }
   </style>
 </head>
 <body>
+
 <div id="chatbot">
+
+  <!-- HEADER -->
   <div id="header">
     <div class="header-stripe"></div>
     <div class="header-inner">
@@ -277,6 +416,8 @@
       <div class="status-pill"><span class="dot-green"></span> Online</div>
     </div>
   </div>
+
+  <!-- QUICK TOPICS -->
   <div id="quick-bar">
     <button class="q-btn" onclick="quickAsk('What experiences do you offer?')">Experiences</button>
     <button class="q-btn" onclick="quickAsk('What are the prices?')">Pricing</button>
@@ -287,6 +428,8 @@
     <button class="q-btn" onclick="quickAsk('Any current promotions?')">Promotions</button>
     <button class="q-btn" onclick="quickAsk('What are your FAQs?')">FAQs</button>
   </div>
+
+  <!-- MESSAGES -->
   <div id="messages">
     <div class="msg bot">
       <div class="av">
@@ -301,43 +444,66 @@ I'm here to help with our experiences, pricing, programmes, bookings and gift vo
 Use the quick buttons above or type your question below. You can also book directly using the buttons at the bottom!</div>
     </div>
   </div>
-  <div id="book-section">
-    <div class="book-label">📅 Book Directly</div>
-    <div class="book-grid">
-      <a class="book-btn" href="https://fareharbor.com/embeds/book/singaporeflightexperience/items/171261/calendar/?ref=https://flightexperience.com.sg" target="_blank" rel="noopener">✈️ 737 Experience</a>
-      <a class="book-btn" href="https://fareharbor.com/embeds/book/singaporeflightexperience/items/224844/calendar/?ref=https://flightexperience.com.sg" target="_blank" rel="noopener">🥽 VR Experience</a>
-      <a class="book-btn" href="https://fareharbor.com/embeds/book/singaporeflightexperience/?full-items=yes&flow=386999" target="_blank" rel="noopener">🎁 737 Gift Voucher</a>
-      <a class="book-btn" href="https://fareharbor.com/embeds/book/singaporeflightexperience/?full-items=yes&flow=386999" target="_blank" rel="noopener">🎁 VR Gift Voucher</a>
-      <a class="book-btn" href="https://fareharbor.com/embeds/book/singaporeflightexperience/?full-items=yes&flow=252084" target="_blank" rel="noopener">🏆 Flying Club Pack</a>
-      <a class="book-btn" href="https://fareharbor.com/embeds/book/singaporeflightexperience/?full-items=yes&flow=252084" target="_blank" rel="noopener">🛩️ Flying Club Session</a>
-    </div>
-    <div class="contact-row">
-      <a class="contact-btn wa" href="https://wa.me/6563392737" target="_blank" rel="noopener">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-        WhatsApp
-      </a>
-      <a class="contact-btn" href="tel:+6563392737">
+
+  <!-- BOTTOM ACTION BAR -->
+  <div id="action-bar">
+    <div class="main-btns">
+      <button class="main-btn gold" onclick="togglePanel('book-panel')">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        Book Now
+        <svg class="chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <button class="main-btn" onclick="togglePanel('contact-panel')">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.55 13a19.79 19.79 0 01-3.07-8.67A2 2 0 012.48 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
-        Call Us
-      </a>
-      <a class="contact-btn" href="https://mail.google.com/mail/?view=cm&to=singapore@flightexperience.com.sg" target="_blank" rel="noopener">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-        Email
-      </a>
-      <a class="contact-btn agent" href="https://wa.me/6563392737?text=Hi%2C%20I%27d%20like%20to%20speak%20to%20someone%20from%20your%20team." target="_blank" rel="noopener">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-        Real Person
-      </a>
+        Contact
+        <svg class="chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <button class="main-btn" onclick="togglePanel('social-panel')">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+        Follow Us
+        <svg class="chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+    </div>
+
+    <!-- BOOK PANEL -->
+    <div class="sub-panel" id="book-panel">
+      <a class="sub-btn" href="https://fareharbor.com/embeds/book/singaporeflightexperience/items/171261/calendar/?ref=https://flightexperience.com.sg" target="_blank" rel="noopener">✈️ 737 Experience</a>
+      <a class="sub-btn" href="https://fareharbor.com/embeds/book/singaporeflightexperience/items/224844/calendar/?ref=https://flightexperience.com.sg" target="_blank" rel="noopener">🥽 VR Experience</a>
+      <a class="sub-btn" href="https://fareharbor.com/embeds/book/singaporeflightexperience/?full-items=yes&flow=386999" target="_blank" rel="noopener">🎁 737 Gift Voucher</a>
+      <a class="sub-btn" href="https://fareharbor.com/embeds/book/singaporeflightexperience/?full-items=yes&flow=386999" target="_blank" rel="noopener">🎁 VR Gift Voucher</a>
+      <a class="sub-btn" href="https://fareharbor.com/embeds/book/singaporeflightexperience/?full-items=yes&flow=252084" target="_blank" rel="noopener">🏆 Flying Club Pack</a>
+      <a class="sub-btn" href="https://fareharbor.com/embeds/book/singaporeflightexperience/?full-items=yes&flow=252084" target="_blank" rel="noopener">🛩️ Flying Club Session</a>
+    </div>
+
+    <!-- CONTACT PANEL -->
+    <div class="sub-panel" id="contact-panel">
+      <a class="sub-btn wa" href="https://wa.me/6563392737" target="_blank" rel="noopener">💬 WhatsApp</a>
+      <a class="sub-btn" href="tel:+6563392737">📞 Call +65 6339 2737</a>
+      <a class="sub-btn" href="#" id="email-btn" onclick="copyEmail(event)">📧 Email (Copy Address)</a>
+      <a class="sub-btn agent" href="https://wa.me/6563392737?text=Hi%2C%20I%27d%20like%20to%20speak%20to%20someone%20from%20your%20team." target="_blank" rel="noopener">👤 Speak to a Real Person</a>
+    </div>
+
+    <!-- SOCIAL PANEL -->
+    <div class="sub-panel" id="social-panel">
+      <a class="sub-btn ig" href="https://www.instagram.com/flightexperiencesg" target="_blank" rel="noopener">📸 Instagram</a>
+      <a class="sub-btn tiktok" href="https://www.tiktok.com/@flightexperiencesg" target="_blank" rel="noopener">🎵 TikTok</a>
+      <a class="sub-btn fb" href="https://www.facebook.com/flightexperiencesg/" target="_blank" rel="noopener">👍 Facebook</a>
+      <a class="sub-btn rednote" href="https://www.xiaohongshu.com/user/profile/67220341000000001d02d57c" target="_blank" rel="noopener">📕 RedNote 小红书</a>
     </div>
   </div>
+
+  <!-- INPUT -->
   <div id="input-bar">
     <input id="user-input" type="text" placeholder="Ask me anything about Flight Experience SG…" autocomplete="off" />
     <button id="send-btn" onclick="sendMessage()" aria-label="Send">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
     </button>
   </div>
+
   <div class="powered">Powered by AI · Flight Experience Singapore · flightexperience.com.sg</div>
+
 </div>
+
 <script>
   const msgsEl = document.getElementById('messages');
   const inputEl = document.getElementById('user-input');
@@ -407,6 +573,33 @@ Use the quick buttons above or type your question below. You can also book direc
   }
 
   inputEl.addEventListener('keydown', e => { if (e.key === 'Enter') sendMessage(); });
+
+  function togglePanel(id) {
+    const panels = ['book-panel', 'contact-panel', 'social-panel'];
+    const btns = document.querySelectorAll('.main-btn');
+    panels.forEach((p, i) => {
+      const panel = document.getElementById(p);
+      const btn = btns[i];
+      if (p === id) {
+        const isOpen = panel.classList.contains('open');
+        panel.classList.toggle('open', !isOpen);
+        btn.classList.toggle('active', !isOpen);
+      } else {
+        panel.classList.remove('open');
+        btn.classList.remove('active');
+      }
+    });
+  }
+
+  function copyEmail(e) {
+    e.preventDefault();
+    navigator.clipboard.writeText('singapore@flightexperience.com.sg').then(() => {
+      const btn = document.getElementById('email-btn');
+      const original = btn.innerHTML;
+      btn.innerHTML = '✅ Copied!';
+      setTimeout(() => btn.innerHTML = original, 2000);
+    });
+  }
 </script>
 </body>
 </html>
