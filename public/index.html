@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Flight Experience Singapore — Support</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Open+Sans:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy: #0b1f3a;
+      --navy-mid: #0f2d52;
+      --navy-light: #1a4a7a;
+      --sky: #2a7abf;
+      --sky-light: #3d8fd4;
+      --gold: #f5a623;
+      --gold-dark: #d4891a;
+      --white: #ffffff;
+      --off-white: #f7f9fc;
+      --border: #dde3ed;
+      --text: #0b1f3a;
+      --text-2: #3d5473;
+      --text-3: #7a92b0;
+      --green: #25D366;
+      --bot-bg: #eef3fa;
+      --user-bg: #0f2d52;
+    }
+    body {
+      background: linear-gradient(135deg, #0b1f3a 0%, #1a4a7a 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Open Sans', sans-serif;
+      padding: 16px;
+    }
+    #chatbot {
+      width: 100%;
+      max-width: 460px;
+      background: var(--white);
+      border-radius: 16px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      height: 720px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+    }
+    #header {
+      background: var(--navy);
+      padding: 0;
+      flex-shrink: 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .header-stripe {
+      position: absolute; top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--gold), var(--sky-light), var(--gold));
+    }
+    .header-inner {
+      padding: 14px 16px 12px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .logo-box {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 10px;
+      width: 42px; height: 42px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .header-text { flex: 1; }
+    .header-text h1 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 13.5px; font-weight: 700;
+      color: var(--white);
+      letter-spacing: 0.3px;
+      text-transform: uppercase;
+    }
+    .header-text p {
+      font-size: 10.5px;
+      color: rgba(255,255,255,0.55);
+      margin-top: 2px;
+    }
+    .status-pill {
+      display: flex; align-items: center; gap: 5px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 20px;
+      padding: 4px 10px;
+      font-size: 10.5px;
+      color: rgba(255,255,255,0.75);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 500;
+    }
+    .dot-green {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: #4ade80;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.35} }
+    #quick-bar {
+      background: var(--off-white);
+      border-bottom: 1px solid var(--border);
+      padding: 9px 12px;
+      display: flex; gap: 6px; flex-wrap: wrap;
+      flex-shrink: 0
