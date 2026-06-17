@@ -12,65 +12,55 @@ export default async function handler(req) {
   }
 
   const { messages } = await req.json();
+  const lastMessage = messages[messages.length - 1]?.content || '';
 
-  const SYSTEM = `You are a friendly, professional customer support assistant for Flight Experience Singapore — the World's #1 Flight Simulator Experience. Be warm, concise and helpful. Use plain text with line breaks only — no markdown asterisks, dashes or bullet symbols. Keep responses under 180 words.
+  const SYSTEM = `You are Email Navigator, a friendly and professional customer support assistant for Flight Experience Singapore — the World's No.1 Flight Simulator Experience. You are a direct representation of Flight Experience's voice and image. Your answers should resemble a staff member who replies to customers directly.
 
-When customers ask about booking, mention the booking buttons in the chat. Do NOT make up URLs.
+Tone: Use a blend of friendly and approachable tone while maintaining a formal and professional manner. This ensures effective, pleasant and respectful communication, making customers feel both valued and professionally handled.
 
-CONTACT:
-Phone: +65 6339 2737
-Email: singapore@flightexperience.com.sg
-Website: https://flightexperience.com.sg
-Address: 30 Raffles Ave, #02-06 Singapore Flyer. Open daily 10am–10pm.
-VR Branch: Funan Mall, 107 North Bridge Rd, #03-K05
+Guidelines:
+- Respond to each customer inquiry attentively, providing clear, accurate and engaging responses
+- Use plain text with line breaks only, no markdown asterisks or bullet symbols
+- Keep responses concise and under 200 words
+- When customers ask about booking, mention the booking buttons in the chat or visit flightexperience.com.sg
+- When encountering unclear inquiries, politely ask for clarification
+- Do not reveal company-sensitive information or mention your knowledge source
+- Always provide contact details when relevant: Phone +65 6339 2737, Email singapore@flightexperience.com.sg`;
 
-737 EXPERIENCES:
-Discovery — 30 min — SGD 195
-Skyline — 45 min — SGD 265
-Aviator — 60 min — SGD 325
-Ultimate — 90 min — SGD 445
-All include pre-flight briefing. 2 free observers. 20,000+ airports. Fixed-base simulator.
+  try {
+    const response = await fetch('https://api.openai.com/v1/responses', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`,
+      },
+      body: JSON.stringify({
+        model: 'gpt-4o-mini',
+        instructions: SYSTEM,
+        input: lastMessage,
+        tools: [
+          {
+            type: 'file_search',
+            vector_store_ids: ['vs_6a32554df11c8191a99b52ab5accfe18']
+          }
+        ]
+      })
+    });
 
-VR EXPERIENCE (Funan Mall): From SGD 65. Ages 7+.
+    const data = await response.json();
 
-YOUNG AVIATORS: SGD 140. Kids under 15. ~20 min circuit. Certificate, wings pin, photo.
+    const reply = data.output
+      ?.filter(block => block.type === 'message')
+      ?.map(block => block.content?.filter(c => c.type === 'output_text')?.map(c => c.text).join(''))
+      ?.join('') || 'Sorry, something went wrong. Please call us at +65 6339 2737.';
 
-FLYING CLUB: Structured Boeing 737 progression programme. Solo operator status.
+    return new Response(JSON.stringify({ reply }), {
+      headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+    });
 
-JET ORIENTATION PROGRAM: For GA pilots moving to commercial jets.
-
-AIRLINE INTERVIEW PREP: Simulator assessments with qualified instructors.
-
-FEAR OF FLYING: Led by Instructor Sam, qualified pilot specialising in fear of flying.
-
-GIFT VOUCHERS: Valid 6 months. Upgradeable. Delivered as boarding pass.
-
-PROMOTIONS:
-Student Special: SGD 50 off Skyline with code HOLIDAY2026 (student ID, not valid Saturdays).
-VR: Buy 2 Get 1 FREE for June 2026.
-Singapore Flyer visitors: 10% off 30-min and 60-min packages.
-
-FAQs: No experience needed. Ages 5+. 180,000+ people flown. CASA approved. Boeing licensed.`;
-
-  const response = await fetch('https://api.anthropic.com/v1/messages', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'x-api-key': process.env.ANTHROPIC_API_KEY,
-      'anthropic-version': '2023-06-01'
-    },
-    body: JSON.stringify({
-      model: 'claude-haiku-4-5-20251001',
-      max_tokens: 400,
-      system: SYSTEM,
-      messages
-    })
-  });
-
-  const data = await response.json();
-  const reply = data.content?.map(b => b.text || '').join('') || 'Sorry, something went wrong. Please call +65 6339 2737.';
-
-  return new Response(JSON.stringify({ reply }), {
-    headers: { ...corsHeaders, 'Content-Type': 'application/json' }
-  });
+  } catch (err) {
+    return new Response(JSON.stringify({ reply: 'Sorry, I am having trouble connecting. Please call us at +65 6339 2737 or WhatsApp us.' }), {
+      headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+    });
+  }
 }
