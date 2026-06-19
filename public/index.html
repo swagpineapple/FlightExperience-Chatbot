@@ -235,6 +235,13 @@
     }
     .back-btn:hover { opacity: 0.75; }
 
+    .info-note {
+      font-size: 12px;
+      color: var(--text-3);
+      line-height: 1.5;
+      padding: 2px 2px 6px;
+    }
+
     #input-bar {
       padding: 10px 12px;
       display: flex; gap: 8px; align-items: center;
@@ -370,17 +377,16 @@ Use the quick buttons above or type your question below. You can also book direc
 
     <div class="sub-panel cat-panel" id="cat-pilots">
       <button class="back-btn" onclick="showCat(null)">← Back</button>
-      <a class="sub-btn enquiry" href="mailto:singapore@flightexperience.com.sg?subject=Jet%20Orientation%20Program%20Enquiry">Jet Orientation Program</a>
-      <a class="sub-btn enquiry" href="mailto:singapore@flightexperience.com.sg?subject=Airline%20Interview%20Preparation%20Enquiry">Airline Interview Preparation</a>
-      <a class="sub-btn enquiry" href="mailto:singapore@flightexperience.com.sg?subject=Fear%20of%20Flying%20Course%20Enquiry">Fear of Flying Course</a>
-      <a class="sub-btn enquiry" href="mailto:singapore@flightexperience.com.sg?subject=School%20or%20University%20Programme%20Enquiry">School / University Programmes</a>
+      <div class="info-note">For Jet Orientation Program, Airline Interview Preparation, Fear of Flying Course, and School/University Programmes, please contact our team directly:</div>
+      <a class="sub-btn" href="tel:+6563392737">Call Us — +65 6339 2737</a>
+      <a class="sub-btn" href="#" onclick="copyEmail(event)">Email — singapore@flightexperience.com.sg</a>
     </div>
 
     <div class="sub-panel cat-panel" id="cat-corporate">
       <button class="back-btn" onclick="showCat(null)">← Back</button>
-      <a class="sub-btn enquiry" href="mailto:singapore@flightexperience.com.sg?subject=Corporate%20Team%20Building%20Enquiry">Corporate Team Building</a>
-      <a class="sub-btn enquiry" href="mailto:singapore@flightexperience.com.sg?subject=Group%20Event%20Enquiry">Group Event</a>
-      <a class="sub-btn enquiry" href="mailto:singapore@flightexperience.com.sg?subject=School%20or%20University%20Visit%20Enquiry">School / University Visit</a>
+      <div class="info-note">For Corporate Team Building, Group Events, and School/University Visits, please contact our team directly for a custom quote:</div>
+      <a class="sub-btn" href="tel:+6563392737">Call Us — +65 6339 2737</a>
+      <a class="sub-btn" href="#" onclick="copyEmail(event)">Email — singapore@flightexperience.com.sg</a>
     </div>
 
     <div class="sub-panel" id="contact-panel">
@@ -509,7 +515,7 @@ Use the quick buttons above or type your question below. You can also book direc
   function copyEmail(e) {
     e.preventDefault();
     navigator.clipboard.writeText('singapore@flightexperience.com.sg').then(() => {
-      const btn = document.getElementById('email-btn');
+      const btn = e.currentTarget;
       const original = btn.innerHTML;
       btn.innerHTML = 'Copied!';
       setTimeout(() => btn.innerHTML = original, 2000);
