@@ -390,8 +390,11 @@ Use the quick buttons above or type your question below. You can also book direc
     </div>
 
     <div class="sub-panel" id="contact-panel">
+      <div class="info-note">For calls, we are available daily from 10am to 10pm. For emails, feel free to reach out anytime and we will get back to you as soon as possible.</div>
       <a class="sub-btn" href="tel:+6563392737">Call Us — +65 6339 2737</a>
       <a class="sub-btn" href="#" id="email-btn" onclick="copyEmail(event)">Email — Copy Address</a>
+      <a class="sub-btn ig" href="https://www.instagram.com/flightexperiencesg" target="_blank" rel="noopener">Instagram Message</a>
+      <a class="sub-btn fb" href="https://m.me/flightexperiencesg" target="_blank" rel="noopener">Facebook Messenger</a>
     </div>
 
     <div class="sub-panel" id="social-panel">
@@ -425,10 +428,15 @@ Use the quick buttons above or type your question below. You can also book direc
     return `<div class="av"><svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg></div>`;
   }
 
+  function linkify(text) {
+    return text.replace(/(https?:\/\/[^\s]+)/g, '<a href="$1" target="_blank" rel="noopener" style="color:var(--sky);text-decoration:underline;">$1</a>');
+  }
+
   function addMsg(text, role) {
     const div = document.createElement('div');
     div.className = `msg ${role}`;
-    div.innerHTML = `${role === 'bot' ? botAvatar() : userAvatar()}<div class="bubble">${text}</div>`;
+    const content = role === 'bot' ? linkify(text) : text;
+    div.innerHTML = `${role === 'bot' ? botAvatar() : userAvatar()}<div class="bubble">${content}</div>`;
     msgsEl.appendChild(div);
     msgsEl.scrollTop = msgsEl.scrollHeight;
   }
