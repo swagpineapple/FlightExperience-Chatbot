@@ -1,23 +1,18 @@
-export const config = { runtime: 'edge' };
+export default async function handler(req, res) {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
-export default async function handler(req) {
-  const corsHeaders = {
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Methods': 'POST, OPTIONS',
-    'Access-Control-Allow-Headers': 'Content-Type',
-  };
-
-  if (req.method === 'OPTIONS') {
-    return new Response(null, { headers: corsHeaders });
-  }
+  if (req.method === 'OPTIONS') return res.status(200).end();
+  if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
   try {
-    const { messages = [] } = await req.json();
+    const { messages = [] } = req.body;
     const latestUserMessage = [...messages].reverse().find(m => m.role === 'user')?.content || '';
 
     const SYSTEM = `You are a friendly and professional staff member at Flight Experience Singapore. Respond like a real person — warm, natural and conversational while maintaining a professional manner.
 
-Keep replies concise, 2 to 4 sentences is usually enough. Write in short paragraphs, never use bullet points, dashes or numbered lists. Do not open with stiff phrases like "Thank you for contacting us." Only share contact details when genuinely needed. Never mention any staff member by name. Always refer to the team as "our team" or "our qualified instructors."
+Keep replies concise, 2 to 4 sentences is usually enough. Write in short paragraphs, never use bullet points or numbered lists. Do not open with stiff phrases like "Thank you for contacting us." Only share contact details when genuinely needed. Never mention any staff member by name. Always refer to the team as "our team" or "our qualified instructors."
 
 Use the knowledge base to answer questions. If the answer is not in the knowledge base, say you are not fully sure and suggest the customer contacts the team directly.
 
@@ -49,10 +44,9 @@ Website: https://flightexperience.com.sg`;
     const data = await response.json();
 
     if (!response.ok) {
-      return new Response(JSON.stringify({
-        reply: `Sorry, something went wrong on our end. Please call us at +65 6339 2737 or email singapore@flightexperience.com.sg.`
-      }), {
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+      console.error('OpenAI error:', data.error);
+      return res.status(200).json({
+        reply: 'Sorry, something went wrong. Please call us at +65 6339 2737 or email singapore@flightexperience.com.sg.'
       });
     }
 
@@ -62,16 +56,12 @@ Website: https://flightexperience.com.sg`;
         ?.join('') ||
       'Sorry, I could not get a response. Please call us at +65 6339 2737.';
 
-    return new Response(JSON.stringify({ reply }), {
-      headers: { ...corsHeaders, 'Content-Type': 'application/json' }
-    });
+    return res.status(200).json({ reply });
 
   } catch (err) {
-    return new Response(JSON.stringify({
+    console.error('Server error:', err);
+    return res.status(200).json({
       reply: 'Sorry, I am having trouble connecting. Please call us at +65 6339 2737.'
-    }), {
-      status: 500,
-      headers: { ...corsHeaders, 'Content-Type': 'application/json' }
     });
   }
 }
