@@ -6,6 +6,6 @@
   },
   "outputDirectory": "fes-chatbot/public",
   "rewrites": [
-    { "source": "/api/(.*)", "destination": "/fes-chatbot/api/$1" }
+    { "source": "/api/(.*)", "destination": "/fes-chatbot/api/chat.js/$1" }
   ]
 }
