@@ -1,11 +1,11 @@
 {
   "functions": {
-    "api/chat.js": {
+    "fes-chatbot/api/chat.js": {
       "runtime": "nodejs20.x"
     }
   },
-  "outputDirectory": "public",
+  "outputDirectory": "fes-chatbot/public",
   "rewrites": [
-    { "source": "/api/(.*)", "destination": "/api/$1" }
+    { "source": "/api/(.*)", "destination": "/fes-chatbot/api/$1" }
   ]
 }
