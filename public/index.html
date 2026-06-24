@@ -100,6 +100,26 @@
       animation: pulse 2s infinite;
     }
     @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.35} }
+
+    #beta-banner {
+      background: #fffbeb;
+      border-bottom: 1px solid #fde68a;
+      padding: 7px 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+    .beta-icon {
+      font-size: 13px;
+      flex-shrink: 0;
+    }
+    .beta-text {
+      font-size: 11.5px;
+      color: #92400e;
+      font-family: 'Open Sans', sans-serif;
+      line-height: 1.4;
+    }
     #quick-bar {
       background: var(--off-white);
       border-bottom: 1px solid var(--border);
@@ -301,6 +321,11 @@
       </div>
       <div class="status-pill"><span class="dot-green"></span> Online</div>
     </div>
+  </div>
+
+  <div id="beta-banner">
+    <span class="beta-icon">⚠️</span>
+    <span class="beta-text">This chatbot is currently under development. Some information may be inaccurate — please verify with our team directly.</span>
   </div>
 
   <div id="quick-bar">
