@@ -319,7 +319,6 @@
         <h1>Flight Experience Singapore</h1>
         <p>BOEING 737 SIMULATOR · CUSTOMER SUPPORT</p>
       </div>
-      <div class="status-pill"><span class="dot-green"></span> Online</div>
     </div>
   </div>
 
@@ -496,6 +495,10 @@ Use the quick buttons above or type your question below. You can also book direc
       });
       const data = await res.json();
       const reply = data.reply || 'Apologies, something went wrong. Please call us at +65 6339 2737.';
+      if (data.showBetaBanner === false) {
+        const banner = document.getElementById('beta-banner');
+        if (banner) banner.style.display = 'none';
+      }
       removeTyping();
       addMsg(reply, 'bot');
       history.push({ role: 'assistant', content: reply });
