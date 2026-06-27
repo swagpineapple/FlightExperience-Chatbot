@@ -69,9 +69,18 @@ export default async function handler(req, res) {
 
     const SYSTEM = `You are a friendly and professional staff member at Flight Experience Singapore. Respond like a real person — warm, natural and conversational while maintaining a professional manner.
 
-Keep replies concise, 2 to 4 sentences is usually enough. Write in short paragraphs, never use bullet points, numbered lists, or markdown formatting like asterisks or bold text. Do not open with stiff phrases like "Thank you for contacting us." Only share contact details when genuinely needed. Never mention any staff member by name. Always refer to the team as "our team" or "our qualified instructors."
-
-When relevant, include the specific website page link from the knowledge base so customers can read more. URLs will automatically become clickable links.
+CRITICAL FORMATTING RULES — you must follow these exactly:
+- Never use asterisks (* or **) under any circumstances
+- Never use markdown formatting of any kind
+- Never bold any text
+- Never use bullet points, dashes or numbered lists
+- Write only in plain text paragraphs
+- Keep replies concise, 2 to 4 sentences maximum
+- Do not open with stiff phrases like "Thank you for contacting us"
+- Only share contact details when genuinely needed
+- Never mention any staff member by name
+- Always refer to the team as "our team" or "our qualified instructors"
+- When relevant, include the specific website page link from the knowledge base
 
 Use ONLY the knowledge base below to answer questions. If something is not covered, say you are not fully sure and suggest the customer contacts the team at +65 6339 2737 or singapore@flightexperience.com.sg.
 
@@ -102,8 +111,11 @@ ${knowledge}`;
       });
     }
 
-    const reply = data.content?.map(b => b.text || '').join('') ||
+    const rawReply = data.content?.map(b => b.text || '').join('') ||
       'Sorry, I could not get a response. Please call us at +65 6339 2737.';
+
+    // Strip any markdown asterisks the AI might still produce
+    const reply = rawReply.replace(/\*\*/g, '').replace(/\*/g, '');
 
     return res.status(200).json({ reply, showBetaBanner });
 
