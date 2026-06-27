@@ -453,7 +453,10 @@ Use the quick buttons above or type your question below. You can also book direc
   }
 
   function linkify(text) {
-    return text.replace(/(https?:\/\/[^\s]+)/g, '<a href="$1" target="_blank" rel="noopener" style="color:var(--sky);text-decoration:underline;">$1</a>');
+    // Strip all markdown asterisks first
+    const clean = text.replace(/\*\*/g, '').replace(/\*/g, '');
+    // Then make URLs clickable
+    return clean.replace(/(https?:\/\/[^\s<]+)/g, '<a href="$1" target="_blank" rel="noopener" style="color:var(--sky);text-decoration:underline;">$1</a>');
   }
 
   function addMsg(text, role) {
