@@ -296,3 +296,11 @@ ${knowledge}
     });
   }
 }
+const reply = rawReply
+  .replace(/\*\*/g, '')
+  .replace(/\*/g, '')
+  .replace(
+    /singapore@flightexperiencecom\.sg/gi,
+    'singapore@flightexperience.com.sg'
+  )
+  .trim();
