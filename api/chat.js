@@ -8,14 +8,17 @@ export default async function handler(req, res) {
   }
 
   if (req.method !== 'POST') {
-    return res.status(405).json({ error: 'Method not allowed' });
+    return res.status(405).json({
+      error: 'Method not allowed'
+    });
   }
 
   const { messages = [] } = req.body;
 
   try {
     // Fetch knowledge base from Google Sheets
-    const SHEET_ID = '1O-3XuIFIsT3fr0pevBzuvwPICmCh1ofbYF4Ar2E2e0U';
+    const SHEET_ID =
+      '1O-3XuIFIsT3fr0pevBzuvwPICmCh1ofbYF4Ar2E2e0U';
 
     const sheetUrl =
       `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&t=${Date.now()}`;
@@ -90,7 +93,8 @@ export default async function handler(req, res) {
       }
 
       if (question && answer) {
-        knowledge += `Q: ${question}\nA: ${answer}\n\n`;
+        knowledge +=
+          `Q: ${question}\nA: ${answer}\n\n`;
       }
     }
 
@@ -123,7 +127,7 @@ Instead, explain that our team will review the customer's circumstances and advi
 
 For voucher extensions, always state that requests are reviewed on a case-by-case basis and approval is not guaranteed.
 
-For voucher problems, ask for the voucher code and relevant details. Say that our team will investigate and advise the customer on the next step.
+For voucher problems, ask for the voucher code and relevant details. Say that our team will investigate the issue and advise the customer on the next step.
 
 For missed sessions, direct the customer to our team. Explain that available options depend on the booking policy, circumstances and availability.
 
@@ -198,14 +202,18 @@ ${knowledge}
         .join('') ||
       'Sorry, I could not get a response. Please call us at +65 6339 2737.';
 
-    // Clean formatting and correct common email typo.
-    // There must only be ONE "const reply" declaration.
+    // Remove unwanted formatting and correct risky wording.
+    // There must only be one "const reply" declaration.
     const reply = rawReply
       .replace(/\*\*/g, '')
       .replace(/\*/g, '')
       .replace(
         /singapore@flightexperiencecom\.sg/gi,
         'singapore@flightexperience.com.sg'
+      )
+      .replace(
+        /(?:they(?:'|’)ll|our team will) sort this out for you\.?/gi,
+        'Our team will investigate the issue and advise you on the next step.'
       )
       .trim();
 
