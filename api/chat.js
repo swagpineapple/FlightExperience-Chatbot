@@ -10,7 +10,7 @@ export default async function handler(req, res) {
 
   try {
     // Fetch knowledge base from Google Sheets
-    const SHEET_ID = '1xTmSLeDE9mA8uiny8074xHuW4Chaum1Ui9FydDqOmzM';
+    const SHEET_ID = '1O-3XuIFIsT3fr0pevBzuvwPICmCh1ofbYF4Ar2E2e0U';
     const sheetUrl = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&t=${Date.now()}`;
 
     const sheetRes = await fetch(sheetUrl);
